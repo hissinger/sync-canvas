@@ -1,0 +1,4 @@
+.rooms/
+.assets/
+.yarn
+node_modules/
