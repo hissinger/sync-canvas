@@ -1,4 +1,5 @@
 import { useSync } from "@tldraw/sync";
+import { useState } from "react";
 import {
   AssetRecordType,
   getHashForString,
@@ -6,17 +7,10 @@ import {
   type TLBookmarkAsset,
   Tldraw,
   uniqueId,
+  type TLUserPreferences,
+  useTldrawUser,
 } from "tldraw";
 import "tldraw/tldraw.css";
-
-const getRandomColor = () => {
-  const letters = "0123456789ABCDEF";
-  let color = "#";
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-};
 
 const WORKER_URL = `http://localhost:5858`;
 
@@ -26,32 +20,38 @@ interface WhiteboardProps {
 }
 
 export function Whiteboard({ roomId, userName }: WhiteboardProps) {
+  const [userPreferences] = useState<TLUserPreferences>({
+    id: "user-" + Math.random(),
+    name: userName,
+  });
+
   // Create a store connected to multiplayer.
   const store = useSync({
     // We need to know the websocket's URI...
     uri: `${WORKER_URL}/connect/${roomId}`,
     // ...and how to handle static assets like images & videos
     assets: multiplayerAssets,
-    userInfo: {
-      id: uniqueId(),
-      name: userName,
-      color: getRandomColor(),
-    },
+    userInfo: userPreferences,
   });
+
+  const user = useTldrawUser({ userPreferences });
 
   return (
     <>
       <div className="relative w-full h-full">
         <Tldraw
+          className="tldraw__editor"
           // we can pass the connected store into the Tldraw component which will handle
           // loading states & enable multiplayer UX like cursors & a presence menu
           store={store}
+          user={user}
           onMount={(editor) => {
             // @ts-expect-error: Exposing editor instance on window for debugging
             window.editor = editor;
             // when the editor is ready, we need to register out bookmark unfurling service
             editor.registerExternalAssetHandler("url", unfurlBookmarkUrl);
           }}
+          deepLinks
         />
       </div>
     </>

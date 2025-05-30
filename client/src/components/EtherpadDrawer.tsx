@@ -13,7 +13,7 @@ export function EtherpadDrawer({
     >
       <iframe
         title="etherpad"
-        src={`http://localhost:9001/p/${roomId}`}
+        src={`http://localhost/p/${roomId}`}
         className="w-full h-full border-none"
       />
     </div>
