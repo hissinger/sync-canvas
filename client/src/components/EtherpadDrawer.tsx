@@ -1,3 +1,5 @@
+const HOST_URL = import.meta.env.VITE_HOST_URL;
+
 export function EtherpadDrawer({
   visible,
   roomId,
@@ -13,7 +15,7 @@ export function EtherpadDrawer({
     >
       <iframe
         title="etherpad"
-        src={`http://localhost/p/${roomId}`}
+        src={`${HOST_URL}/p/${roomId}`}
         className="w-full h-full border-none"
       />
     </div>
