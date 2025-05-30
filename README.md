@@ -1,6 +1,23 @@
 # Sync Canvas
 
-A real-time collaboration web application featuring a whiteboard (powered by tldraw) and shared notes (powered by Etherpad).
-Easily develop and deploy using Docker and docker-compose.
+Sync Canvas is a real-time collaboration web application that integrates:
 
-![alt text](images/screenshot.png)
+- **Whiteboard**  
+  Collaborative drawing powered by [tldraw](https://tldraw.dev/).
+
+- **Shared Notes**  
+  Real-time text collaboration powered by [Etherpad](https://etherpad.org/).
+
+- **Video/Audio Communication**  
+  Seamless media interaction powered by [LiveKit](https://livekit.io/).
+
+## Features
+
+- Draw together on an infinite canvas
+- Co-edit notes in real-time
+- Communicate with voice and video
+- Fully dockerized for easy setup and deployment
+
+## Screenshot
+
+![Screenshot](images/screenshot.png)
