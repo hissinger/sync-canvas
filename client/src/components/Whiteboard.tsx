@@ -12,7 +12,7 @@ import {
 } from "tldraw";
 import "tldraw/tldraw.css";
 
-const WORKER_URL = import.meta.env.VITE_HOST_URL;
+const WORKER_URL = import.meta.env.VITE_HOST_URL + "/w";
 
 interface WhiteboardProps {
   roomId: string;

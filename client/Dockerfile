@@ -1,11 +1,12 @@
 FROM node:20 AS builder
+
 WORKDIR /app
 
-RUN rm -rf /app/*
-
-COPY package*.json ./
-COPY vite.config.* ./
-RUN npm install
+RUN corepack enable && corepack prepare yarn@4.3.0 --activate
 
 COPY . .
-RUN npm run build
+
+RUN yarn install
+RUN yarn build
+
+CMD ["yarn", "dlx", "serve", "-s", "dist", "-l", "8080"]
