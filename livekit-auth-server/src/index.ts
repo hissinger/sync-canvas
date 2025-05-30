@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 
-app.get("/livekit/token", (req: any, res: any) => {
+app.get("/livekit/token", async (req: any, res: any) => {
   const { room, identity } = req.query;
 
   if (!room || !identity) {
@@ -30,10 +30,11 @@ app.get("/livekit/token", (req: any, res: any) => {
     canSubscribe: true,
   });
 
-  res.json({ token: token.toJwt() });
+  res.json({ token: await token.toJwt() });
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+const PORT = Number(process.env.PORT) || 3001;
+const HOST = process.env.HOST || "0.0.0.0";
+app.listen(PORT, HOST, () => {
   console.log(`LiveKit auth server listening on port ${PORT}`);
 });
