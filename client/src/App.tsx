@@ -1,7 +1,7 @@
 import { Entrance } from "./components/Entrance";
 import { useState } from "react";
-import "./tailwind.css";
 import { Room } from "./components/Room";
+import "./tailwind.css";
 
 const roomId = "test-room";
 

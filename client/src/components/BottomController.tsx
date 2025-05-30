@@ -17,23 +17,22 @@ export function BottomController({
     <div className="fixed bottom-0 left-0 w-full p-2 bg-gray-100 border-t border-gray-300">
       <div className="flex justify-between items-center">
         <div className="ml-4 text-gray-700">{userName}</div>
-        <div className="text-right">
+        <div className="text-right flex gap-2 items-center">
           <button
-            className="mr-2 px-4 py-2 bg-gray-500 text-white border-none rounded-md cursor-pointer hover:bg-gray-800"
+            className="w-8 h-8 flex items-center justify-center p-0 bg-transparent border-none hover:bg-gray-200 rounded"
             onClick={handleShareNote}
           >
-            <StickyNote className="w-5 h-5" />
+            <StickyNote className="w-5 h-5 text-gray-700" />
           </button>
           <button
-            className="mr-4 px-4 py-2 bg-red-300 text-white border-none rounded-md cursor-pointer hover:bg-red-500"
+            className="w-8 h-8 flex items-center justify-center p-0 bg-transparent border-none hover:bg-red-100 rounded"
             onClick={() => {
               if (window.confirm("정말 나가시겠습니까?")) {
-                // Optionally, you can redirect or perform other actions here
-                window.location.href = "/"; // Redirect to home or another page
+                window.location.href = "/";
               }
             }}
           >
-            <LogOut className="w-5 h-5" />
+            <LogOut className="w-5 h-5 text-red-500" />
           </button>
         </div>
       </div>

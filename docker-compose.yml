@@ -30,6 +30,8 @@ services:
       context: ./simple-server-example
       dockerfile: Dockerfile
     restart: unless-stopped
+    # ports:
+    #   - "5858:5858"
     environment:
       NODE_ENV: production
     networks:

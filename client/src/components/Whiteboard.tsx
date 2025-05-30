@@ -38,7 +38,7 @@ export function Whiteboard({ roomId, userName }: WhiteboardProps) {
 
   return (
     <>
-      <div className="relative w-full h-full">
+      <div className="h-full w-full bg-white shadow-lg overflow-hidden">
         <Tldraw
           className="tldraw__editor"
           // we can pass the connected store into the Tldraw component which will handle

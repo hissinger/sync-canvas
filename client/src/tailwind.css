@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .split {
+    @apply flex h-full w-full;
+  }
+
+  .gutter {
+    @apply bg-gray-100 flex-shrink-0;
+  }
+
+  .gutter-horizontal {
+    @apply cursor-col-resize w-2;
+  }
+}
