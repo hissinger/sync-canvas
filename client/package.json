@@ -10,8 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@livekit/components-react": "^2.9.9",
+    "@livekit/components-styles": "^1.1.6",
     "@tldraw/sync": "^3.13.1",
     "@tldraw/sync-core": "^3.13.1",
+    "livekit-client": "^2.13.3",
+    "livekit-server-sdk": "^2.13.0",
     "lucide-react": "^0.511.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

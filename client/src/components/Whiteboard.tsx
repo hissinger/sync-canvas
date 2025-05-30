@@ -11,6 +11,7 @@ import {
   useTldrawUser,
 } from "tldraw";
 import "tldraw/tldraw.css";
+import "../styles/tldraw-custom.css";
 
 const WORKER_URL = import.meta.env.VITE_HOST_URL + "/w";
 
@@ -51,7 +52,6 @@ export function Whiteboard({ roomId, userName }: WhiteboardProps) {
             // when the editor is ready, we need to register out bookmark unfurling service
             editor.registerExternalAssetHandler("url", unfurlBookmarkUrl);
           }}
-          deepLinks
         />
       </div>
     </>

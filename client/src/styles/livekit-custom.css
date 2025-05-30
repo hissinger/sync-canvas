@@ -1,0 +1,7 @@
+.lk-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr !important;
+  grid-auto-flow: row !important;
+  grid-gap: 0.5rem !important;
+  width: 180px !important;
+}  

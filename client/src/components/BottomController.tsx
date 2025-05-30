@@ -1,3 +1,4 @@
+import { ControlBar } from "@livekit/components-react";
 import { LogOut, StickyNote } from "lucide-react";
 
 interface BottomControllerProps {
@@ -17,6 +18,16 @@ export function BottomController({
     <div className="fixed bottom-0 left-0 w-full p-2 bg-gray-100 border-t border-gray-300">
       <div className="flex justify-between items-center">
         <div className="ml-4 text-gray-700">{userName}</div>
+        <ControlBar
+          className="h-10 p-0 m-0"
+          variation="minimal"
+          controls={{
+            microphone: true,
+            camera: true,
+            screenShare: false,
+            leave: false,
+          }}
+        />
         <div className="text-right flex gap-2 items-center">
           <button
             className="w-8 h-8 flex items-center justify-center p-0 bg-transparent border-none hover:bg-gray-200 rounded"

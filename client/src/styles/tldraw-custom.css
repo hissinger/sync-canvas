@@ -1,0 +1,6 @@
+.tlui-toolbar {
+  top: 0.5rem;
+  left: 50% !important;
+  transform: translateX(-50%);
+  position: fixed !important;
+}
