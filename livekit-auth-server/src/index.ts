@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 
-app.get("/livekit/token", async (req: any, res: any) => {
+app.get("/token", async (req: any, res: any) => {
   const { room, identity } = req.query;
 
   if (!room || !identity) {
