@@ -8,29 +8,9 @@ import { RoomContext } from "@livekit/components-react";
 import { Room } from "livekit-client";
 import "@livekit/components-styles";
 import { useEffect } from "react";
-import { AccessToken } from "livekit-server-sdk";
-import type { VideoGrant } from "livekit-server-sdk";
 
 const serverUrl = import.meta.env.VITE_LIVEKIT_URL;
-const apiKey = import.meta.env.VITE_LIVEKIT_API_KEY;
-const apiSecret = import.meta.env.VITE_LIVEKIT_API_SECRET;
 
-// Generate a token for the user to connect to the LiveKit room
-const generateToken = async (roomName: string, identity: string) => {
-  const at = new AccessToken(apiKey, apiSecret, {
-    identity,
-  });
-
-  const videoGrant: VideoGrant = {
-    room: roomName,
-    roomJoin: true,
-    canPublish: true,
-    canSubscribe: true,
-  };
-  at.addGrant(videoGrant);
-
-  return await at.toJwt();
-};
 interface RoomProps {
   roomId: string;
   userName: string;
@@ -54,7 +34,10 @@ export function MainRoom({ roomId, userName }: RoomProps) {
 
     const connect = async () => {
       if (mounted) {
-        const token = await generateToken(roomId, userName);
+        const res = await fetch(
+          `/livekit/token?room=${roomId}&identity=${userName}`
+        );
+        const { token } = await res.json();
         await room.connect(serverUrl, token);
       }
     };
