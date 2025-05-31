@@ -3,8 +3,10 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    environment:
-      NODE_ENV: production
+      args:
+        NODE_ENV: production
+        VITE_HOST_URL: ${VITE_HOST_URL}
+        VITE_LIVEKIT_URL: ${VITE_LIVEKIT_URL}
     networks:
       - sync-canvas-network
 
@@ -23,18 +25,23 @@ services:
       - web-client
       - etherpad
       - tldraw-sync-server
+      - livekit-auth-server
     networks:
       - sync-canvas-network
 
-  livekit-auth:
+  livekit-auth-server:
     build:
       context: ./livekit-auth-server
       dockerfile: Dockerfile
+      args:
+        NODE_ENV: production
     restart: unless-stopped
     # ports:
     #   - "3001:3001"
-    env_file:
-      - ./livekit-auth-server/.env
+    environment:
+      NODE_ENV: production
+      LIVEKIT_API_KEY: ${LIVEKIT_API_KEY}
+      LIVEKIT_API_SECRET: ${LIVEKIT_API_SECRET}
     networks:
       - sync-canvas-network
 
@@ -43,6 +50,8 @@ services:
     build:
       context: ./tldraw-sync-server
       dockerfile: Dockerfile
+      args:
+        NODE_ENV: production
     restart: unless-stopped
     # ports:
     #   - "5858:5858"

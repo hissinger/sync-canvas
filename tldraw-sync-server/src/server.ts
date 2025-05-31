@@ -2,9 +2,9 @@ import cors from "@fastify/cors";
 import websocketPlugin from "@fastify/websocket";
 import fastify from "fastify";
 import type { RawData } from "ws";
-import { loadAsset, storeAsset } from "./assets";
-import { makeOrLoadRoom } from "./rooms";
-import { unfurl } from "./unfurl";
+import { loadAsset, storeAsset } from "./assets.js";
+import { makeOrLoadRoom } from "./rooms.js";
+import { unfurl } from "./unfurl.js";
 
 const PORT = 5858;
 

@@ -1,4 +1,8 @@
-FROM node:20 AS builder
+FROM node:20
+
+ARG NODE_ENV=development
+ARG VITE_HOST_URL
+ARG VITE_LIVEKIT_URL
 
 WORKDIR /app
 

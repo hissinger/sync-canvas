@@ -17,11 +17,16 @@ export class LiveKitService {
   }
 
   async connect(roomId: string, userName: string): Promise<void> {
-    const res = await fetch(
-      `${serverUrl}/livekit/token?room=${roomId}&identity=${userName}`
-    );
-    const { token } = await res.json();
-    await this.room.connect(liveKitHostUrl, token);
+    try {
+      const res = await fetch(
+        `${serverUrl}/livekit/token?room=${roomId}&identity=${userName}`
+      );
+      const { token } = await res.json();
+      await this.room.connect(liveKitHostUrl, token);
+    } catch (error) {
+      console.error("Failed to connect to LiveKit:", error);
+      throw new Error("Connection failed");
+    }
   }
 
   disconnect(): void {

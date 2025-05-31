@@ -2,3 +2,4 @@
 .assets/
 .yarn
 node_modules/
+dist/
