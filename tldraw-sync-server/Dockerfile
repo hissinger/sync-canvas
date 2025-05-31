@@ -5,7 +5,7 @@ WORKDIR /app
 RUN corepack enable
 RUN corepack prepare yarn@4.6.0 --activate
 
-COPY package.json yarn.lock .yarnrc.yml .yarn/ ./
+COPY package.json yarn.lock .yarnrc.yml ./
 RUN yarn install --immutable
 
 COPY . .
@@ -18,7 +18,7 @@ WORKDIR /app
 RUN corepack enable
 RUN corepack prepare yarn@4.6.0 --activate
 
-COPY package.json yarn.lock .yarnrc.yml .yarn/ ./
+COPY package.json yarn.lock .yarnrc.yml ./
 RUN yarn workspaces focus --production --all
 
 COPY --from=builder /app/dist ./dist
