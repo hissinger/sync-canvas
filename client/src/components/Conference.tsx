@@ -15,13 +15,7 @@ export function Conference() {
 }
 
 function MyVideoConference() {
-  const tracks = useTracks(
-    [
-      { source: Track.Source.Camera, withPlaceholder: false },
-      { source: Track.Source.ScreenShare, withPlaceholder: false },
-    ],
-    { onlySubscribed: false }
-  );
+  const tracks = useTracks([Track.Source.Camera], { onlySubscribed: false });
 
   if (tracks.length === 0) {
     return null;

@@ -17,7 +17,7 @@ export function BottomController({
   return (
     <div className="fixed bottom-0 left-0 w-full p-2 bg-gray-100 border-t border-gray-300">
       <div className="flex justify-between items-center">
-        <div className="ml-4 text-gray-700">{userName}</div>
+        <div className="ml-4 text-gray-700 font-bold">{userName}</div>
         <ControlBar
           className="h-10 p-0 m-0"
           variation="minimal"

@@ -7,11 +7,11 @@ export function CenteredParticipantTiles({
   tracks: ReturnType<typeof useTracks>;
 }) {
   return (
-    <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex gap-4">
+    <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex gap-2">
       {tracks.map((trackRef) => (
         <div
           key={trackRef.participant.sid}
-          className="w-32 h-32 rounded-full overflow-hidden border-4 shadow-lg shadow-gray-500/50"
+          className="w-28 h-28 rounded-full overflow-hidden border-4 shadow-lg shadow-gray-500/50"
           style={{
             borderColor: getColorFromIdentity(trackRef.participant.identity),
           }}
