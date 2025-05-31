@@ -16,6 +16,7 @@ services:
       - "80:80"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/routes.conf:/etc/nginx/snippets/routes.conf
       - ./certs:/etc/nginx/certs
     depends_on:
       - web-client
