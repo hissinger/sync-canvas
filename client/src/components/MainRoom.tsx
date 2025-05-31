@@ -3,13 +3,11 @@ import Split from "react-split";
 import { BottomController } from "./BottomController";
 import { Whiteboard } from "./Whiteboard";
 import { EtherpadDrawer } from "./EtherpadDrawer";
-import { VideoRoom } from "./VideoRoom";
+import { Conference } from "./Conference";
 import { RoomContext } from "@livekit/components-react";
-import { Room } from "livekit-client";
 import "@livekit/components-styles";
 import { useEffect } from "react";
-
-const serverUrl = import.meta.env.VITE_LIVEKIT_URL;
+import { LiveKitService } from "../services/LiveKitService";
 
 interface RoomProps {
   roomId: string;
@@ -18,44 +16,31 @@ interface RoomProps {
 
 export function MainRoom({ roomId, userName }: RoomProps) {
   const [showShareNote, setShowShareNote] = useState(false);
-  const [room] = useState(
-    () =>
-      new Room({
-        // Optimize video quality for each participant's screen
-        adaptiveStream: true,
-        // Enable automatic audio/video quality optimization
-        dynacast: true,
-      })
-  );
+  const [liveKitService] = useState(() => new LiveKitService());
 
   // Connect to room
   useEffect(() => {
-    let mounted = true;
+    if (!roomId || !userName) {
+      console.error("Room ID and user name are required to connect.");
+      return;
+    }
 
     const connect = async () => {
-      if (mounted) {
-        const res = await fetch(
-          `/livekit/token?room=${roomId}&identity=${userName}`
-        );
-        const { token } = await res.json();
-        await room.connect(serverUrl, token);
-      }
+      await liveKitService.connect(roomId, userName);
     };
     connect();
 
     return () => {
-      mounted = false;
-      room.disconnect();
+      liveKitService.disconnect();
     };
-  }, [room, roomId, userName]);
+  }, [liveKitService, roomId, userName]);
 
   return (
-    <RoomContext.Provider value={room}>
+    <RoomContext.Provider value={liveKitService.getRoom()}>
       <div className="flex flex-col h-screen">
         <div className="flex flex-1 overflow-hidden">
-          {/* 비디오를 오른쪽 중앙에 배치 */}
-          <div className="absolute top-1/2 right-2 transform -translate-y-1/2 z-50">
-            <VideoRoom />
+          <div className="z-50">
+            <Conference />
           </div>
 
           <Split
