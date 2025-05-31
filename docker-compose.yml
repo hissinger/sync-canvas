@@ -41,7 +41,7 @@ services:
   tldraw-sync-server:
     container_name: tldraw-sync-server
     build:
-      context: ./simple-server-example
+      context: ./tldraw-sync-server
       dockerfile: Dockerfile
     restart: unless-stopped
     # ports:
