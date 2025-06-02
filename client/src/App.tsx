@@ -1,18 +1,22 @@
 import { Entrance } from "./components/Entrance";
-import { useState } from "react";
 import { MainRoom } from "./components/MainRoom";
+import {
+  SyncRoomProvider,
+  useSyncRoomContext,
+} from "./contexts/SyncRoomContext";
 import "./tailwind.css";
 
-const roomId = "test-room";
-
 function App() {
-  const [userName, setUserName] = useState("");
-
-  return userName ? (
-    <MainRoom userName={userName} roomId={roomId} />
-  ) : (
-    <Entrance onSubmit={setUserName} />
+  return (
+    <SyncRoomProvider>
+      <Content />
+    </SyncRoomProvider>
   );
+}
+
+function Content() {
+  const { userName } = useSyncRoomContext();
+  return <>{userName ? <MainRoom /> : <Entrance />}</>;
 }
 
 export default App;

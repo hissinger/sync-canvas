@@ -5,20 +5,16 @@ import { Whiteboard } from "./Whiteboard";
 import { EtherpadDrawer } from "./EtherpadDrawer";
 import { Conference } from "./Conference";
 import { RoomContext } from "@livekit/components-react";
-import "@livekit/components-styles";
 import { useEffect } from "react";
 import { LiveKitService } from "../services/LiveKitService";
+import { useSyncRoomContext } from "../contexts/SyncRoomContext";
+import "@livekit/components-styles";
 
-interface RoomProps {
-  roomId: string;
-  userName: string;
-}
-
-export function MainRoom({ roomId, userName }: RoomProps) {
+export function MainRoom() {
   const [showShareNote, setShowShareNote] = useState(false);
   const [liveKitService] = useState(() => new LiveKitService());
+  const { roomId, userName } = useSyncRoomContext();
 
-  // Connect to room
   useEffect(() => {
     if (!roomId || !userName) {
       console.error("Room ID and user name are required to connect.");
@@ -39,6 +35,7 @@ export function MainRoom({ roomId, userName }: RoomProps) {
     <RoomContext.Provider value={liveKitService.getRoom()}>
       <div className="flex flex-col h-screen">
         <div className="flex flex-1 overflow-hidden">
+          {/* Conference component for video/audio */}
           <div className="z-50">
             <Conference />
           </div>
@@ -57,20 +54,17 @@ export function MainRoom({ roomId, userName }: RoomProps) {
                 showShareNote ? "block" : "hidden"
               }`}
             >
-              {showShareNote && <EtherpadDrawer roomId={roomId} />}
+              {showShareNote && <EtherpadDrawer />}
             </div>
 
             {/* Right pane: Whiteboard */}
             <div className="flex-1 min-w-0 h-full overflow-hidden">
-              <Whiteboard roomId={roomId} userName={userName} />
+              <Whiteboard />
             </div>
           </Split>
         </div>
         <div className="min-h-[50px]">
-          <BottomController
-            userName={userName}
-            showShareNote={setShowShareNote}
-          />
+          <BottomController showShareNote={setShowShareNote} />
         </div>
       </div>
     </RoomContext.Provider>

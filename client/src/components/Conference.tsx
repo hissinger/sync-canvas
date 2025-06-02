@@ -1,7 +1,7 @@
 import { RoomAudioRenderer, useTracks } from "@livekit/components-react";
 import { Track } from "livekit-client";
-import "../styles/livekit-custom.css";
 import { CenteredParticipantTiles } from "./CenteredParticipantTiles";
+import "../styles/livekit-custom.css";
 
 export function Conference() {
   return (
@@ -15,8 +15,10 @@ export function Conference() {
 }
 
 function MyVideoConference() {
-  const tracks = useTracks([Track.Source.Camera], { onlySubscribed: false });
-
+  const tracks = useTracks(
+    [{ source: Track.Source.Camera, withPlaceholder: true }],
+    { onlySubscribed: false }
+  );
   if (tracks.length === 0) {
     return null;
   }

@@ -10,20 +10,18 @@ import {
   type TLUserPreferences,
   useTldrawUser,
 } from "tldraw";
+import { useSyncRoomContext } from "../contexts/SyncRoomContext";
 import "tldraw/tldraw.css";
 import "../styles/tldraw-custom.css";
 
 const WORKER_URL = import.meta.env.VITE_HOST_URL + "/w";
 
-interface WhiteboardProps {
-  roomId: string;
-  userName: string;
-}
-
-export function Whiteboard({ roomId, userName }: WhiteboardProps) {
+export function Whiteboard() {
+  const { roomId, userName, userColor } = useSyncRoomContext();
   const [userPreferences] = useState<TLUserPreferences>({
     id: "user-" + Math.random(),
     name: userName,
+    color: userColor,
   });
 
   // Create a store connected to multiplayer.

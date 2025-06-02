@@ -1,15 +1,14 @@
 import { ControlBar } from "@livekit/components-react";
 import { LogOut, StickyNote } from "lucide-react";
+import { useSyncRoomContext } from "../contexts/SyncRoomContext";
 
 interface BottomControllerProps {
-  userName: string;
   showShareNote: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function BottomController({
-  userName,
-  showShareNote,
-}: BottomControllerProps) {
+export function BottomController({ showShareNote }: BottomControllerProps) {
+  const { userName } = useSyncRoomContext();
+
   const handleShareNote = () => {
     showShareNote((prev) => !prev);
   };

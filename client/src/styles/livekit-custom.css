@@ -4,3 +4,7 @@
   grid-auto-flow: row !important;
   grid-gap: 0.5rem !important;
 } */
+
+.lk-participant-metadata {
+  display: none !important;
+}

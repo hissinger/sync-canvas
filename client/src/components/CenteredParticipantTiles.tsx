@@ -16,12 +16,34 @@ export function CenteredParticipantTiles({
             borderColor: getColorFromIdentity(trackRef.participant.identity),
           }}
         >
-          <ParticipantTile
-            trackRef={trackRef}
-            className="w-full h-full object-cover"
-          />
+          {trackRef.publication && !trackRef.publication.isMuted ? (
+            <ParticipantTile
+              trackRef={trackRef}
+              className="w-full h-full object-cover"
+              disableSpeakingIndicator={true}
+            />
+          ) : (
+            <NamePlaceholderTile name={trackRef.participant.identity} />
+          )}
         </div>
       ))}
+    </div>
+  );
+}
+
+function getInitials(name: string): string {
+  return name
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase())
+    .slice(0, 2)
+    .join("");
+}
+
+function NamePlaceholderTile({ name }: { name: string }) {
+  const initials = getInitials(name);
+  return (
+    <div className="w-full h-full rounded-full bg-gray-700 text-white flex items-center justify-center text-4xl font-semibold">
+      {initials}
     </div>
   );
 }
