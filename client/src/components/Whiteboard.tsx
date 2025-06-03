@@ -17,9 +17,9 @@ import "../styles/tldraw-custom.css";
 const WORKER_URL = import.meta.env.VITE_HOST_URL + "/w";
 
 export function Whiteboard() {
-  const { roomId, userName, userColor } = useSyncRoomContext();
+  const { roomId, userId, userName, userColor } = useSyncRoomContext();
   const [userPreferences] = useState<TLUserPreferences>({
-    id: "user-" + Math.random(),
+    id: userId,
     name: userName,
     color: userColor,
   });
