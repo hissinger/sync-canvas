@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { useSyncRoomContext } from "../contexts/SyncRoomContext";
 
-export function Entrance() {
+interface EntranceProps {
+  onEnter: (userName: string) => void;
+}
+
+export function Entrance({ onEnter }: EntranceProps) {
   const [textValue, setTextValue] = useState("");
-  const { setUserName: setUserName } = useSyncRoomContext();
 
   const handleEnter = () => {
     if (textValue.trim()) {
-      setUserName(textValue.trim());
+      onEnter(textValue.trim());
     } else {
       alert("이름을 입력해주세요.");
     }

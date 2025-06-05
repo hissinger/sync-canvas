@@ -16,10 +16,18 @@ export class LiveKitService {
     });
   }
 
-  async connect(roomId: string, userName: string): Promise<void> {
+  async connect(
+    roomId: string,
+    userId: string,
+    userName: string
+  ): Promise<void> {
     try {
       const res = await fetch(
-        `${serverUrl}/livekit/token?room=${roomId}&identity=${userName}`
+        `${serverUrl}/livekit/token?room=${encodeURIComponent(
+          roomId
+        )}&identity=${encodeURIComponent(userId)}&name=${encodeURIComponent(
+          userName
+        )}`
       );
       const { token } = await res.json();
       await this.room.connect(liveKitHostUrl, token);

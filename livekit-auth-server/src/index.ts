@@ -9,9 +9,9 @@ const app = express();
 app.use(cors());
 
 app.get("/token", async (req: any, res: any) => {
-  const { room, identity } = req.query;
+  const { room, identity, name } = req.query;
 
-  if (!room || !identity) {
+  if (!room || !identity || !name) {
     return res.status(400).json({ error: "room and identity are required" });
   }
 
@@ -20,6 +20,7 @@ app.get("/token", async (req: any, res: any) => {
     process.env.LIVEKIT_API_SECRET,
     {
       identity: identity as string,
+      name: name as string,
     }
   );
 

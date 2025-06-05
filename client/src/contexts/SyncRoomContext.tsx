@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useEffect } from "react";
-import { getColorFromIdentity, generateUserId } from "../utils/color";
+import React, { createContext, useContext } from "react";
+import { useChat, type ReceivedChatMessage } from "@livekit/components-react";
+import type { SendTextOptions } from "livekit-client";
 
 type SyncRoomContextType = {
   userId: string;
@@ -7,7 +8,19 @@ type SyncRoomContextType = {
   userColor: string;
   roomId: string;
   setUserName: (name: string) => void;
+  chatMessages: ReceivedChatMessage[];
+  send: (
+    message: string,
+    options?: SendTextOptions
+  ) => Promise<ReceivedChatMessage>;
+  isSending?: boolean;
 };
+
+interface UserInfo {
+  id: string;
+  name: string;
+  color: string;
+}
 
 const SyncRoomContext = createContext<SyncRoomContextType | undefined>(
   undefined
@@ -15,18 +28,23 @@ const SyncRoomContext = createContext<SyncRoomContextType | undefined>(
 
 export const SyncRoomProvider = ({
   children,
+  userInfo,
 }: {
   children: React.ReactNode;
+  userInfo: UserInfo;
 }) => {
-  const [userId, setUserId] = React.useState<string>("");
-  const [userName, setUserName] = React.useState<string>("");
-  const [userColor, setUserColor] = React.useState<string>("");
-  const roomId = "test-room"; // This can be dynamic based on your application logic
+  const roomId = "test-room";
 
-  useEffect(() => {
-    setUserId(generateUserId());
-    setUserColor(getColorFromIdentity(userName));
-  }, [userName]);
+  const [userId, setUserId] = React.useState<string>(userInfo.id);
+  const [userName, setUserName] = React.useState<string>(userInfo.name);
+  const [userColor, setUserColor] = React.useState<string>(userInfo.color);
+  const { chatMessages, send, isSending } = useChat();
+
+  React.useEffect(() => {
+    setUserId(userInfo.id);
+    setUserName(userInfo.name);
+    setUserColor(userInfo.color);
+  }, [userInfo]);
 
   return (
     <SyncRoomContext.Provider
@@ -36,6 +54,9 @@ export const SyncRoomProvider = ({
         userColor,
         roomId,
         setUserName,
+        chatMessages,
+        send,
+        isSending,
       }}
     >
       {children}

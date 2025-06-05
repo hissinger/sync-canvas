@@ -23,7 +23,7 @@ export function CenteredParticipantTiles({
               disableSpeakingIndicator={true}
             />
           ) : (
-            <NamePlaceholderTile name={trackRef.participant.identity} />
+            <NamePlaceholderTile name={trackRef.participant.name} />
           )}
         </div>
       ))}
@@ -31,7 +31,8 @@ export function CenteredParticipantTiles({
   );
 }
 
-function getInitials(name: string): string {
+function getInitials(name?: string): string {
+  if (!name) return "";
   return name
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase())
@@ -39,7 +40,7 @@ function getInitials(name: string): string {
     .join("");
 }
 
-function NamePlaceholderTile({ name }: { name: string }) {
+function NamePlaceholderTile({ name }: { name?: string }) {
   const initials = getInitials(name);
   return (
     <div className="w-full h-full rounded-full bg-gray-700 text-white flex items-center justify-center text-4xl font-semibold">
