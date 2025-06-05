@@ -11,11 +11,15 @@ Sync Canvas is a real-time collaboration web application that integrates:
 - **Video/Audio Communication**  
   Seamless media interaction powered by [LiveKit](https://livekit.io/).
 
+- **Chat**  
+  Real-time messaging powered by [LiveKit](https://livekit.io/).
+
 ## Features
 
 - Draw together on an infinite canvas
 - Co-edit notes in real-time
 - Communicate with voice and video
+- Chat with team members
 - Fully dockerized for easy setup and deployment
 
 ## Deployment Flexibility
